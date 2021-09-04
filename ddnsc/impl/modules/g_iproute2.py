@@ -65,6 +65,7 @@ class g_iproute2(framework.ddns.generator_base):
                 )
             )
 
+            ipr.bind()
             while True:
                 handle_ipr_info(ipr.get())
 
