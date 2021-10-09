@@ -55,6 +55,9 @@ class ddns:
             return self.intf == other.intf  \
                     and self.ipaddr == other.ipaddr
 
+        def __hash__(self):
+            return (self.intf, self.ipaddr).__hash__()
+
         def __repr__(self):
             return f'{(self.intf, self.ipaddr)!r}'
 
