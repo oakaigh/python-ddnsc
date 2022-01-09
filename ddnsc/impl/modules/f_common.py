@@ -1,5 +1,7 @@
 from .. import framework
 
+import logging
+
 import typing
 
 class f_common(framework.ddns.filter_base):
@@ -15,6 +17,8 @@ class f_common(framework.ddns.filter_base):
     def check(self, op: framework.ddns.op, address: framework.ddns.address):
         def check_cache():
             nonlocal self, op, address
+
+            logging.debug(f'CHECK {address!r} cache {self.cache!r}')
 
             if self.cache is None:
                 return True
@@ -34,12 +38,16 @@ class f_common(framework.ddns.filter_base):
         def check_interfaces():
             nonlocal self, address
 
-            if self.interfaces is not None:
-                return address.get_interface().get_name() in self.interfaces
-            return True
+            logging.debug(f'CHECK {address!r} interfaces {self.interfaces!r}')
+
+            if self.interfaces is None:
+                return True
+            return address.get_interface().get_name() in self.interfaces
 
         def check_private_address():
             nonlocal self, address
+
+            logging.debug(f'CHECK {address!r} private address')
 
             if not self.private_address:
                 return address.get_ipaddress().is_global

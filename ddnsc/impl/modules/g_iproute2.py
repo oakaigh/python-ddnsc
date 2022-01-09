@@ -1,16 +1,15 @@
-from .. import framework
+import logging
 
+import socket
+import ipaddress
+import pyroute2
+
+import itertools
+
+from .. import framework
 
 class g_iproute2(framework.ddns.generator_base):
     def get(self, callback):
-        import logging
-
-        import socket
-        import ipaddress
-        import pyroute2
-
-        import itertools
-
         def handle_ipr_info(ipr_info):
             for ipr_entry in ipr_info:
                 def handle_intf():

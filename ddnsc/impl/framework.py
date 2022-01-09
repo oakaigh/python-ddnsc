@@ -107,8 +107,10 @@ class ddns:
                 self._db.purge()
 
         def callback(op: self.op, addr: self.address):
+            #logging.debug('cb', op, addr)
             try:
                 if not self._filter.check(op, addr):
+                    logging.debug(f'FILTER {addr!r}')
                     return
 
                 logging.info(f'UPDATE {addr!r}')
